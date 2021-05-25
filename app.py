@@ -13,6 +13,9 @@ access_token = None
 
 public_token = None
 
+@app.route("/", subdomain="about")
+def about_page():
+    return render_template("about.html")
 
 @app.route("/")
 def log_in_page():
