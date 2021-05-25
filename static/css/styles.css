@@ -1,0 +1,243 @@
+html {
+    background-color: rgba(56, 165, 255, 0.692);
+    min-width: 405px;
+}
+
+@font-face {
+    font-family: "Fira Code Regular";
+    src: url("fonts/Fira\ Code/FiraCode-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code Bold";
+    src: url("fonts/Fira\ Code/FiraCode-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code Light";
+    src: url("fonts/Fira\ Code/FiraCode-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code Medium";
+    src: url("fonts/Fira\ Code/FiraCode-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code Retina";
+    src: url("fonts/Fira\ Code/FiraCode-Retina.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code SemiBold";
+    src: url("fonts/Fira\ Code/FiraCode-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Fira Code Bold";
+    src: url("fonts/Fira\ Code/FiraCodeiScript-Bold.ttf") format("truetype");
+}
+
+button {
+    font-family: "Fira Code Medium";
+    border-radius: 8px;
+    border: solid black 3px;
+    width: 350px;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* transition-duration: 200ms; */
+}
+
+button:hover {
+    font-size: 16px;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+
+button:active {
+    color: black;
+    transition-duration: 200ms;
+}
+
+.bank {
+    background-color: #4a435a;
+}
+
+.stock {
+    background-color: #FFFAE3
+}
+
+.crypto {
+    background-color: #99E1D9
+}
+
+.submit_button {
+    background-color: #eceade;
+    margin-top: 10px;
+}
+
+.guest_button {
+    background-color: #ffffff;
+    width: 100px;
+}
+
+#home {
+    background-color: #ffffff;
+    width: 100px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    margin: 10px;
+}
+
+div {
+    text-align: center;
+    align-items: center;
+    margin: 5px;
+    line-break: normal;
+}
+
+.container_w_60 {
+    width: 60%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    text-align: center;
+}
+
+.grid_item {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Fira Code Medium";
+    color: darkslateblue;
+}
+
+h3 {
+    text-align: center;
+    font-family: "Fira Code Medium";
+    color: rgb(47, 40, 94);
+}
+
+h5 {
+    text-align: center;
+    font-family: "Fira Code Medium";
+    color: rgb(47, 40, 94);
+}
+
+input {
+    font-family: "Fira Code Light";
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: solid black 2px;
+}
+
+.form_div {
+    font-family: "Fira Code Medium";
+    text-align: center;
+}
+
+form {
+    font-family: "Fira Code Medium";
+    text-align: left;
+}
+
+p {
+    font-family: "Fira Code SemiBold";
+    text-align: center;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.smalltext {
+    font-size: 10px;
+}
+
+.popout {
+    font-family: "Fira Code Medium";
+    border-radius: 20px;
+    border: 8px solid black;
+    height: min(30vh, auto);
+}
+
+#bank_popout {
+    background-color: #726a85c4;
+}
+
+#crypto_popout {
+    background-color: #99E1D9c4;
+}
+
+#stock_popout {
+    background-color: #FFFAE3c4;
+}
+
+a {
+    font-family: "Fira Code Medium";
+    color: #570051;
+}
+
+#plaid_button {
+    margin: 30px;
+    border-radius: 15px;
+    width: min(200px, 50%);
+    font-family: "Fira Code Medium";
+    font-style: italic;
+    background-color: rgb(159, 153, 173);
+}
+
+#messages_div {
+    grid-template-columns: 10% 90%;
+    display: grid;
+    text-align: left;
+    background-color: rgba(0, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    width: 50%;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 10px;
+    border-radius: 4px;
+    padding: 0px;
+    border: solid black 2px;
+}
+
+.message_grid_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+#message_grid_item_p{
+    justify-content: left;
+}
+
+p{  
+    font-family: "Fira Code Regular";
+    text-align: center;
+    margin: 0px;
+    padding: 10px;
+}
+
+#info_icon {
+    width: 22px;
+    margin: 10px;
+
+}
+
+label{
+    margin: 5px;
+}
+
+.green{
+    color: rgb(0, 189, 0);
+}

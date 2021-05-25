@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title> Login </title>
+    <link href="static/css/styles.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}"></link>
+
+
+</head>
+
+<h1> Welcome to the Portfolio Analyzer!</h1>
+<h3> Please Log In.</h3>
+<div id="form_div">
+    <form>
+        <label>
+            Username
+        </label>
+        <input type="text"></input>
+        <br>
+        <label>
+            Password
+        </label>
+        <input type="password" id="hiddenPassword"></input>
+        <br>
+        <button type="submit" class="submit_button"> Submit </button>
+    </form>
+    <p> Or...</p>
+    <button type="submit" class="guest_button" onclick="window.location.href = 'main';">
+        Sign in as guest
+    </button>
+</div>
+
+
+</body>
+
+</html>
