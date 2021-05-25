@@ -89,4 +89,4 @@ def exchange_public_token():
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=42100)

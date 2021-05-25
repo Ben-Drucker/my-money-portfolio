@@ -91,14 +91,14 @@ function displayBankResults(bankResults) {
         return
     }
     results.innerHTML += "<form id='select_bank_form'></form>"
+    let form = document.getElementById("select_bank_form");
     accounts_array.forEach((account) => {
-        let form = document.getElementById("select_bank_form");
         form.innerHTML +=
             "<input type='checkbox' id=" + account.display_name + " value='Account'>\
             <label for="+ account.display_name + " >"+ account.display_name +"<span class='green'> (Balance: $"+account.bal +") </span> </label><br>\
             </input>";
-        console.log("In here...");
     });
+    form.innerHTML += "<div style='text-align: center;'><button type=submit class=plaid_button sytle='text-align: center;'> Submit </button></div>";
     results.hidden = false;
     document.getElementById("resultsHeader").hidden = false;
 }

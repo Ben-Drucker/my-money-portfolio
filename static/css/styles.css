@@ -1,7 +1,11 @@
 html {
-    background-color: rgba(56, 165, 255, 0.692);
-    min-width: 405px;
+    height: 100%;
+    background: linear-gradient(43deg,rgba(74,67,90,1) 0%, rgb(129, 184, 177) 33%, rgb(255, 250, 226)100%),
+    linear-gradient(199deg, rgb(141, 127, 172) 0%, rgba(153,225,217,1) 33%, rgba(255,250,227,1) 100%),
+    linear-gradient(330deg, rgb(155, 99, 131) 0%, rgb(153, 225, 189) 33%, rgb(255, 253, 246) 100%);
+
 }
+
 
 @font-face {
     font-family: "Fira Code Regular";
@@ -45,12 +49,12 @@ button {
     width: 350px;
     padding-left: 10px;
     padding-right: 10px;
-    /* transition-duration: 200ms; */
+    transition-duration: 60ms;
 }
 
 button:hover {
-    font-size: 16px;
-    transition-duration: 200ms;
+    transform: scale(1.03);
+    box-shadow: 3px 3px black;
     cursor: pointer;
 }
 
@@ -62,6 +66,7 @@ button:active {
 
 .bank {
     background-color: #4a435a;
+    color:#FFFAE3;
 }
 
 .stock {
@@ -139,12 +144,14 @@ input {
 }
 
 .form_div {
-    font-family: "Fira Code Medium";
     text-align: center;
 }
 
 form {
     font-family: "Fira Code Medium";
+}
+
+#select_bank_form{
     text-align: left;
 }
 
@@ -184,7 +191,7 @@ a {
     color: #570051;
 }
 
-#plaid_button {
+.plaid_button {
     margin: 30px;
     border-radius: 15px;
     width: min(200px, 50%);
