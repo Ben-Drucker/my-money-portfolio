@@ -9,37 +9,37 @@ html {
 
 @font-face {
     font-family: "Fira Code Regular";
-    src: url("fonts/Fira\ Code/FiraCode-Regular.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-Regular.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code Bold";
-    src: url("fonts/Fira\ Code/FiraCode-Bold.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-Bold.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code Light";
-    src: url("fonts/Fira\ Code/FiraCode-Light.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-Light.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code Medium";
-    src: url("fonts/Fira\ Code/FiraCode-Medium.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-Medium.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code Retina";
-    src: url("fonts/Fira\ Code/FiraCode-Retina.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-Retina.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code SemiBold";
-    src: url("fonts/Fira\ Code/FiraCode-SemiBold.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCode-SemiBold.woff2") format("truetype");
 }
 
 @font-face {
     font-family: "Fira Code Bold";
-    src: url("fonts/Fira\ Code/FiraCodeiScript-Bold.ttf") format("truetype");
+    src: url("fonts/Fira\ Code/FiraCodeiScript-Bold.woff2") format("truetype");
 }
 
 button {
