@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, jsonify, flask_cors
+from threading import local
+from flask import Flask, render_template, request, jsonify
 
 import plaid
+
+import flask_cors
 
 app = Flask(__name__)
 
@@ -95,4 +98,4 @@ def exchange_public_token():
 
 
 if __name__ == "__main__":
-    app.run(port=42100)
+    app.run(port=localhostport)
