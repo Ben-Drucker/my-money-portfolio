@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flask_cors
 
 import plaid
 
@@ -10,7 +10,10 @@ client = plaid.Client(client_id='60a8883ef567db0011653ef1',
 
 access_token = None
 
+localhostport = 8080
+flask_cors.CORS(app)
 
+app.config['SERVER_NAME'] = 'mymoneyportfol.io'+ ":" + str(localhostport)
 public_token = None
 
 @app.route("/", subdomain="about")
