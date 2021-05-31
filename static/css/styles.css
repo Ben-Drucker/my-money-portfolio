@@ -52,7 +52,7 @@ li, button {
     transition-duration: 60ms;
 }
 
-li:hover, button:hover {
+li:hover, button:hover, input:active, .popped{
     transform: scale(1.03);
     box-shadow: 3px 3px black;
     cursor: pointer;
@@ -205,8 +205,8 @@ a {
     display: grid;
     text-align: left;
     background-color: rgba(0, 255, 255, 0.5);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    /* -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px); */
     width: 50%;
     position: absolute;
     bottom: 0px;
@@ -269,8 +269,8 @@ li{
     background-color: rgba(240, 248, 255, 0.5);
     border-radius: 3.5px;
     margin: 5px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
     list-style-type: none;
     width: 200px;
 }
@@ -278,8 +278,8 @@ li{
 ul{
     text-align: center;
     background-color:rgba(206, 232, 255, 0.521) ;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
     padding: 10px;
     border-radius: 3.5px;
 }

@@ -1,8 +1,11 @@
+from threading import local
 from flask import Flask, render_template, request, jsonify
 
 import flask_cors
 
 import plaid
+
+import flask_cors
 
 app = Flask(__name__)
 
@@ -15,17 +18,16 @@ access_token = None
 #localhostport = 8080
 flask_cors.CORS(app)
 
-app.config['SERVER_NAME'] = 'mymoneyportfol.io:'
+app.config['SERVER_NAME'] = 'mymoneyportfol.io'
 public_token = None
 
 @app.route("/", subdomain='about')
 def about_page():
     return render_template("about.html")
 
-@app.route("/about")
-def about_page_endpoint():
-    about_page()
-    return
+@app.route("/howitworks", subdomain="about")
+def how_it_works():
+    return render_template("howitworks.html")
 
 @app.route("/")
 def log_in_page():
