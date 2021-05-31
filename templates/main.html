@@ -3,7 +3,8 @@
 
 <head>
     <title>Portfolio</title>
-    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}"></link>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    </link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
@@ -16,7 +17,16 @@
 
 </head>
 
+
+
 <body>
+
+    <ul>
+        <li onclick="document.location.reload();"> Home </li>
+        <li onclick="window.location.replace('http:\/\/about.mymoneyportfol.io:8080/');"> About Me</li>
+        <li onclick="document.location.replace('http:\/\/about.mymoneyportfol.io:8080/howitworks');"> How does it work?</li>
+        <li onclick="document.location = '/';"> Login </li>
+    </ul>
 
     <div>
         <h1>Welcome to the portfolio analyser!</h1>
@@ -33,9 +43,9 @@
             <button type="button" class="plaid_button" onclick="plaid_init();">
                 Click here to use Plaid.
             </button>
-            <h5 id="resultsHeader" hidden = true>Please select which accounts you'd like to import:</h5>
-            <p id="results" hidden = true>
-                
+            <h5 id="resultsHeader" hidden=true>Please select which accounts you'd like to import:</h5>
+            <p id="results" hidden=true>
+
             </p>
         </div>
         <div class="grid_item"></div>
@@ -65,9 +75,6 @@
         <div class="grid_item"></div>
     </div>
 </body>
-<button id="home" type="button" onclick="window.location.href = '/';">
-    Go back home.
-</button>
 
 <div id="message_hider" hidden=true>
     <div id="messages_div">
@@ -78,6 +85,12 @@
 
 
     </div>
+</div>
+
+<div id="port_vis">
+        When you add financial accounts, statistics and visualizations for your portfolio will appear here.
+        <br>
+        Click one of the buttons above to get started!
 </div>
 
 </html>

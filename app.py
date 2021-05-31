@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
+import flask_cors
+
 import plaid
 
 app = Flask(__name__)
@@ -10,12 +12,20 @@ client = plaid.Client(client_id='60a8883ef567db0011653ef1',
 
 access_token = None
 
+#localhostport = 8080
+flask_cors.CORS(app)
 
+app.config['SERVER_NAME'] = 'mymoneyportfol.io:'
 public_token = None
 
-@app.route("/", subdomain="about")
+@app.route("/", subdomain='about')
 def about_page():
     return render_template("about.html")
+
+@app.route("/about")
+def about_page_endpoint():
+    about_page()
+    return
 
 @app.route("/")
 def log_in_page():
@@ -92,4 +102,4 @@ def exchange_public_token():
 
 
 if __name__ == "__main__":
-    app.run(port=42100)
+    app.run()
