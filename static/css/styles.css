@@ -1,8 +1,8 @@
 html {
     height: 100%;
-    background: linear-gradient(43deg,rgba(74,67,90,1) 0%, rgb(129, 184, 177) 33%, rgb(255, 250, 226)100%),
-    linear-gradient(199deg, rgb(141, 127, 172) 0%, rgba(153,225,217,1) 33%, rgba(255,250,227,1) 100%),
-    linear-gradient(330deg, rgb(155, 99, 131) 0%, rgb(153, 225, 189) 33%, rgb(255, 253, 246) 100%);
+    background: linear-gradient(43deg, rgba(74, 67, 90, 1) 0%, rgb(129, 184, 177) 33%, rgb(255, 250, 226)100%),
+        linear-gradient(199deg, rgb(141, 127, 172) 0%, rgba(153, 225, 217, 1) 33%, rgba(255, 250, 227, 1) 100%),
+        linear-gradient(330deg, rgb(155, 99, 131) 0%, rgb(153, 225, 189) 33%, rgb(255, 253, 246) 100%);
 
 }
 
@@ -42,7 +42,7 @@ html {
     src: url("fonts/Fira\ Code/FiraCodeiScript-Bold.woff2") format("truetype");
 }
 
-button {
+li, button {
     font-family: "Fira Code Medium";
     border-radius: 8px;
     border: solid black 3px;
@@ -52,7 +52,7 @@ button {
     transition-duration: 60ms;
 }
 
-button:hover {
+li:hover, button:hover, input:active, .popped{
     transform: scale(1.03);
     box-shadow: 3px 3px black;
     cursor: pointer;
@@ -66,7 +66,7 @@ button:active {
 
 .bank {
     background-color: #4a435a;
-    color:#FFFAE3;
+    color: #FFFAE3;
 }
 
 .stock {
@@ -151,7 +151,7 @@ form {
     font-family: "Fira Code Medium";
 }
 
-#select_bank_form{
+#select_bank_form {
     text-align: left;
 }
 
@@ -205,8 +205,8 @@ a {
     display: grid;
     text-align: left;
     background-color: rgba(0, 255, 255, 0.5);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    /* -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px); */
     width: 50%;
     position: absolute;
     bottom: 0px;
@@ -224,11 +224,11 @@ a {
     margin: 0px;
 }
 
-#message_grid_item_p{
+#message_grid_item_p {
     justify-content: left;
 }
 
-p{  
+p {
     font-family: "Fira Code Regular";
     text-align: center;
     margin: 0px;
@@ -241,10 +241,61 @@ p{
 
 }
 
-label{
+label {
     margin: 5px;
 }
 
-.green{
+.green {
     color: rgb(0, 189, 0);
+}
+
+figcaption {
+    margin: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.framed_image {
+    box-shadow: 5px 5px black;
+    border-radius: 10px;
+    border: solid black 5px;
+    width: 50%;
+}
+
+li{
+    display: inline-block;
+    background-color: rgba(240, 248, 255, 0.5);
+    border-radius: 3.5px;
+    margin: 5px;
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
+    list-style-type: none;
+    width: 200px;
+}
+
+ul{
+    text-align: center;
+    background-color:rgba(206, 232, 255, 0.521) ;
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
+    padding: 10px;
+    border-radius: 3.5px;
+}
+
+#port_vis{
+    justify-items: center;
+    align-items: center;
+    border: dashed rgb(61, 61, 61) 5px;
+    border-radius: 20px;
+    background-color: rgba(240, 255, 255, 0.726);
+    font-size: 30px;
+    font-family: "Fira Code Retina";
+    font-style: italic;
+    color: rgb(201, 201, 201);
+    display: flex;
+    height: 250px;
+    background-clip: content-box;
+    margin: 5px;
 }

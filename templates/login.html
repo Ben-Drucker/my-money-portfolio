@@ -11,7 +11,11 @@
 
 
 </head>
-
+<ul>
+    <li onclick="window.location.replace('http:\/\/about.mymoneyportfol.io:8080/');"> About Me</li>
+    <li onclick="document.location.replace('http:\/\/about.mymoneyportfol.io:8080/howitworks');"> How does it work?</li>
+    <li onclick="document.location.reload();"> Login </li>
+</ul>
 <h1> Welcome to the Portfolio Analyzer!</h1>
 <h3> Please Log In.</h3>
 <div id="form_div">
@@ -19,7 +23,7 @@
         <label>
             Username
         </label>
-        <input type="text"></input>
+        <input type="text" onclick="classList.add('popped');"></input>
         <br>
         <label>
             Password

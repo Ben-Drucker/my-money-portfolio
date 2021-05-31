@@ -23,6 +23,10 @@ public_token = None
 def about_page():
     return render_template("about.html")
 
+@app.route("/howitworks", subdomain="about")
+def how_it_works():
+    return render_template("howitworks.html")
+
 @app.route("/")
 def log_in_page():
     return render_template("login.html")
