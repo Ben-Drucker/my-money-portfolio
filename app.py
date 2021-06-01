@@ -5,8 +5,6 @@ import flask_cors
 
 import plaid
 
-import flask_cors
-
 app = Flask(__name__)
 
 client = plaid.Client(client_id='60a8883ef567db0011653ef1',
@@ -15,10 +13,10 @@ client = plaid.Client(client_id='60a8883ef567db0011653ef1',
 
 access_token = None
 
-#localhostport = 8080
-flask_cors.CORS(app)
+localhostport = 42100
+#flask_cors.CORS(app)
 
-app.config['SERVER_NAME'] = 'mymoneyportfol.io'
+#app.config['SERVER_NAME'] = 'mymoneyportfol.io'
 public_token = None
 
 @app.route("/", subdomain='about')
@@ -104,4 +102,4 @@ def exchange_public_token():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(localhostport)
