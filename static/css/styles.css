@@ -52,10 +52,16 @@ li, button {
     transition-duration: 60ms;
 }
 
-li:hover, button:hover, input:active, .popped{
+li:hover, button:hover{
     transform: scale(1.03);
     box-shadow: 3px 3px black;
     cursor: pointer;
+}
+
+input:focus{
+    transform: scale(1.05);
+    box-shadow: 4px 4px black;
+    outline: none;
 }
 
 
