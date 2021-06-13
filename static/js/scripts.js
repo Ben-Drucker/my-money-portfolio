@@ -1,3 +1,17 @@
+// function select_bank_accounts_feedback_client() {
+//     alert("2")
+//     xhttp = new XMLHttpRequest()
+//     xhttp.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             document.getElementById("replacementdata").innerHTML = this.responseText
+//             document.getElementById('splashscreen').style.visibility = 'hidden';
+//         }
+//     }
+//     xhttp.open("GET", "/main/select_bank_accounts_feedback", true)
+//     xhttp.send()
+// }
+
+
 function largeDiv(div_id) {
     let divObject = document.getElementById(div_id);
     if (divObject.hidden) {
@@ -90,16 +104,41 @@ function displayBankResults(bankResults) {
         results.innerHTML = "Sorry. No bank accounts were found for that institution.";
         return
     }
-    results.innerHTML += "<form id='select_bank_form'></form>"
-    let form = document.getElementById("select_bank_form");
+    let form = document.getElementById("select_bank_form_sp");
     accounts_array.forEach((account) => {
         form.innerHTML +=
-            "<input type='checkbox' id=" + account.display_name + " value='Account'>\
-            <label for="+ account.display_name + " >"+ account.display_name +"<span class='green'> (Balance: $"+account.bal +") </span> </label><br>\
+            "<input type='checkbox' id=" + account.id_name + " name=" + account.id_name + " value=" + account.display_name +
+            "<label for=" + account.id_name + " >" + account.display_name + "<span class='green'> (Balance: $" + account.bal + ") </span> </label><br>\
             </input>";
     });
-    form.innerHTML += "<div style='text-align: center;'><button type=submit class=plaid_button sytle='text-align: center;'> Submit </button></div>";
     results.hidden = false;
     document.getElementById("resultsHeader").hidden = false;
 }
 
+window.addEventListener("load", function () {
+    function sendData() {
+        const xhttp = new XMLHttpRequest();
+        const form_data = new FormData(form);
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("got the data.")
+                document.getElementById("replacementdata").innerHTML = this.responseText
+                document.getElementById('splashscreen').style.visibility = 'hidden';
+            }
+        }
+
+        xhttp.addEventListener("error", function (event) {
+            alert('Oops! Something went wrong.');
+        });
+
+        xhttp.open("POST", "/main/select_bank_accounts");
+        xhttp.send(form_data);
+    }
+
+    let form = document.getElementById("select_bank_form2");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        sendData();
+    });
+});

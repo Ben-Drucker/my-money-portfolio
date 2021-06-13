@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
-    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="../static/js/scripts.js"></script>
 
     <link rel="preload" href="../static/css/fonts/Fira Code/FiraCode-Regular.woff2" as="font" crossorigin="anonymous" />
@@ -45,7 +45,10 @@
             </button>
             <h5 id="resultsHeader" hidden=true>Please select which accounts you'd like to import:</h5>
             <p id="results" hidden=true>
-
+                <form id='select_bank_form2'>
+                    <span id="select_bank_form_sp"></span>
+                    <input class="plaid_button" type='submit' value='Submit &#8680;'>
+                </form>
             </p>
         </div>
         <div class="grid_item"></div>
@@ -88,9 +91,15 @@
 </div>
 
 <div id="port_vis">
-        When you add financial accounts, statistics and visualizations for your portfolio will appear here.
-        <br>
+
+    <span id="splashscreen">
+        When you add financial accounts, statistics and visualizations for your portfolio will appear here. <br>
         Click one of the buttons above to get started!
+    </span>
+
+    <span id="replacementdata">
+
+    </span>
 </div>
 
 </html>
