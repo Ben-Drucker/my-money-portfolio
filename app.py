@@ -107,10 +107,10 @@ def exchange_public_token():
 def select_bank_accounts():
 
     accounts_dict = request.form.to_dict()
-    message = "<p>You Selected:</p>\
-            <ul>"
+    message = "<p class = medium_heading>You Selected:</p>\
+            <ul class = ulplain>"
     for name_id in accounts_dict:
-        message += ("<li>" + id_dict[name_id] + "</li>")
+        message += ("<li class = liplain>" + id_dict[name_id] + "</li>")
 
     message += "</ul>"
 
@@ -120,14 +120,14 @@ def select_bank_accounts():
     username = "guest-web"
     acct_name = "acct-web"
     acct_bal = 421.27
-    message = "message-web"
+    #message = "message-web"
 
     SQLrequest = "insert into account_data (username, acct_name, acct_bal, message) values (?, ?, ?, ?)"
     actual_vals = (username, acct_name, acct_bal, message)
     cursor.execute(SQLrequest, actual_vals)
     connection.commit()
     cursor.close()
-    return "/"
+    return message
 
 @app.route("/main/select_bank_accounts_feedback", methods=['GET'])
 def select_bank_accounts_feedback():

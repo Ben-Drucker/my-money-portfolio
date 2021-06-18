@@ -1,5 +1,8 @@
-html {
-    height: 100%;
+html{
+    min-height: 100vh;
+}
+
+body{
     background: linear-gradient(43deg, rgba(74, 67, 90, 1) 0%, rgb(129, 184, 177) 33%, rgb(255, 250, 226)100%),
         linear-gradient(199deg, rgb(141, 127, 172) 0%, rgba(153, 225, 217, 1) 33%, rgba(255, 250, 227, 1) 100%),
         linear-gradient(330deg, rgb(155, 99, 131) 0%, rgb(153, 225, 189) 33%, rgb(255, 253, 246) 100%);
@@ -8,6 +11,7 @@ html {
     -o-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
 
@@ -59,7 +63,7 @@ button {
 }
 
 li:hover,
-button:hover
+button:hover,
 .plaid_button:hover {
     transform: scale(1.03);
     box-shadow: 3px 3px black;
@@ -69,6 +73,12 @@ button:hover
 input:focus {
     transform: scale(1.05);
     box-shadow: 4px 4px black;
+    outline: none;
+}
+
+checkbox:focus{
+    transform: scale(1.05);
+    box-shadow: unset;
     outline: none;
 }
 
@@ -163,6 +173,8 @@ input {
 
 form {
     font-family: "Fira Code Medium";
+    text-align: left;
+    font-size: 14px;
 }
 
 #select_bank_form {
@@ -309,7 +321,45 @@ ul {
     font-style: italic;
     color: rgb(201, 201, 201);
     display: flex;
-    height: 250px;
+    min-height: 250px;
     background-clip: content-box;
     margin: 5px;
+}
+
+.liplain{
+    display: unset;
+    background-color: unset;
+    border-radius: unset;
+    margin: 0px;
+    width: unset;
+    font-size: 14px;
+    color: black;
+    font-style: normal;
+    border: unset;
+    display: list-item;
+    list-style-type: circle;
+    padding: 0px;
+}
+
+.liplain:hover{
+    transform: scale(1.005);
+    box-shadow: unset;
+    cursor: default;
+}
+
+.ulplain{
+    text-align: left;
+    background-color: unset;
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
+    padding: 10px;
+    border-radius: unset;
+    font-size: 14px;
+    margin: 0px 20px;
+}
+
+.medium_heading{
+    font-size: 19px;
+    color: black;
+    font-family: 'Fira Code Bold';
 }

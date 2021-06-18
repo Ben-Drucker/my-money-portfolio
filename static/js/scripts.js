@@ -122,9 +122,8 @@ window.addEventListener("load", function () {
 
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                alert("got the data.")
                 document.getElementById("replacementdata").innerHTML = this.responseText
-                document.getElementById('splashscreen').style.visibility = 'hidden';
+                document.getElementById('splashscreen').style.display = 'none';
             }
         }
 
