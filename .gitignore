@@ -241,3 +241,6 @@ Thumbs.db
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,flask
+templates/index.html
+private/users.db
+static/.DS_Store

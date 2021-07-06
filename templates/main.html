@@ -124,13 +124,7 @@
 
 <script>
 
-    const labels = [
-        'Stocks',
-        'Savings',
-        'Checking',
-        'Cash',
-        'Crypto',
-    ];
+    labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
 
     let colors = []
     for (let i = 0; i < labels.length; i++) {
@@ -141,19 +135,29 @@
         base += ")";
         colors.push(base)
     }
+    colors = [
+        'rgb(0, 111, 255)',
+        'rgb(0, 147, 255)',
+        'rgb(0, 175, 255)',
+        'rgb(0, 199, 255)',
+        'rgb(0, 219, 227)',
+        'rgb(0, 236, 197)',
+        'rgb(122, 250, 173)',
+    
+    ]
 
-    const data = {
+    data = {
         labels: labels,
         datasets: [{
-            label: 'My First dataset',
+            label: 'Share of assets',
             backgroundColor: colors,
             borderColor: 'rgb(255, 255, 255)',
             borderWidth: .33,
-            data: [6100, 21000, 5000, 200, 2000],
+            data: [],
         }]
     };
 
-    const config = {
+    config = {
         type: 'pie',
         data,
         options: {
@@ -187,6 +191,73 @@
     var myChart = new Chart(
         document.getElementById('myChart'),
         config
+    );
+</script>
+
+<script>
+    labels_debt = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+
+    let colors_debt = []
+    for (let i = 0; i < labels_debt.length; i++) {
+        base = "rgb(";
+        b = 20 * i
+        g = 20 * i
+        base += `255, ${g}, ${b}`
+        base += ")";
+        colors_debt.push(base)
+    }
+    colors_debt = [
+        'rgb(255, 0, 105)',
+        'rgb(255, 113, 76)',
+        'rgb(255, 182, 73)',
+        'rgb(255, 241, 116)',
+    ]
+
+    data_debt = {
+        labels: labels,
+        datasets: [{
+            label: 'Share of Debt',
+            backgroundColor: colors_debt,
+            borderColor: 'rgb(255, 255, 255)',
+            borderWidth: .33,
+            data: [],
+        }]
+    };
+
+    config_debt = {
+        type: 'pie',
+        data: data_debt,
+        options: {
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return `$${args.value}: ${args.label}`;
+                    },
+                    precision: 0,
+                    showZero: true,
+                    fontSize: 12,
+                    fontColor: 'rgb(50, 50, 50)',
+                    fontStyle: 'normal',
+                    fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                    textShadow: true,
+                    shadowBlur: 10,
+                    shadowOffsetX: -5,
+                    shadowOffsetY: 5,
+                    shadowColor: 'rgba(255,0,0,0.75)',
+                    arc: true,
+                    position: 'outside',
+                    overlap: true,
+                    showActualPercentages: true,
+                    outsidePadding: 4,
+                    textMargin: 4
+                }
+            }
+        }
+    };
+
+    var myChart_debt = new Chart(
+        document.getElementById('myChart_debt'),
+        config_debt
     );
 </script>
 

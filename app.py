@@ -170,18 +170,27 @@ def select_bank_accounts():
 
     pie = update_pie()
 
-    return jsonify(message=message, net_worth=getNetWorth(username), pie_labels=pie['categories'], pie_vals=pie['values'])
+    return jsonify(message=message, net_worth=getNetWorth(username), pie_labels=pie['categories'], pie_vals=pie['values'], pie_labels_debt=pie['categories_debt'], pie_vals_debt=pie['values_debt'])
 
 def update_pie():
     
     connection = sqlite3.connect("private/account_data.sqlite")
     cursor = connection.cursor()
-    cmd = "select subtype, bal from user_account_data where username='{}'".format(username)
+    cmd = "select subtype, bal, type from user_account_data where username='{}'".format(username)
     cursor.execute(cmd)
     res = list(cursor)
-    categories = [x[0] for x in res]
-    values = [x[1] for x in res]
-    return {'categories': categories, 'values': values}
+    categories = []
+    values = []
+    categories_debt = []
+    values_debt = []
+    for x in res:
+        if x[2] == "loan":
+            values_debt.append(x[1])
+            categories_debt.append(x[0])
+        else:
+            values.append(x[1])
+            categories.append(x[0])
+    return {'categories': categories, 'values': values, 'categories_debt': categories_debt, 'values_debt': values_debt}
 
 
 def getNetWorth(username):
@@ -201,4 +210,4 @@ def getNetWorth(username):
 
 
 if __name__ == "__main__":
-    app.run(port=localhostport)
+    app.run(port=localhostport, debug=True)

@@ -134,16 +134,17 @@ window.addEventListener("load", function () {
                 let msg = server_data.message
                 let net_worth = parseFloat(server_data.net_worth)
                 document.getElementById("selected_accounts").innerHTML = msg
-                document.getElementById("net_worth").innerHTML = "Your net worth: <span style='border: solid black 6px; border-radius: 20px; padding: 10px;'>$ " + net_worth + "</span>"
+                document.getElementById("net_worth").innerHTML = "Your net worth: <span style='border: solid black 6px; border-radius: 20px; padding: 10px; whitespace: nowrap'>$ " + net_worth + "</span>"
                 document.getElementById('splashscreen').style.display = 'none';
                 document.getElementById('replacementdata').style.display = 'grid';
                 document.getElementById('port_vis').style.borderStyle = 'solid';
                 document.getElementById('port_vis').style.borderColor = 'black';
                 opacityAnimation(document.getElementById('bank_popout'), 1, 0, 0.1);
-                console.log("Pie Labels:", server_data.pie_labels)
-                console.log("Pie Vals:", server_data.pie_vals)
                 data.labels = server_data.pie_labels
                 data.datasets[0].data = server_data.pie_vals
+                data_debt.labels = server_data.pie_labels_debt
+                data_debt.datasets[0].data = server_data.pie_vals_debt
+                console.log(data, data_debt)
             }
         }
 
@@ -161,12 +162,3 @@ window.addEventListener("load", function () {
         sendData();
     });
 });
-
-/*
-
-{
-    "public_token": "public-sandbox-60fca949-9857-4baf-a7f5-77c6899ed21c",
-    "request_id": "oI8vtMQGzAI8ncr"
-}
-
-*/
