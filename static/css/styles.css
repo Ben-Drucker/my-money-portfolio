@@ -12,6 +12,7 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+    min-width: 950px;
 }
 
 
@@ -137,6 +138,13 @@ div {
     text-align: center;
 }
 
+.grid203050{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    text-align: center;
+    width: 100%;
+}
+
 .grid_item {
     text-align: center;
 }
@@ -219,11 +227,12 @@ a {
 
 .plaid_button {
     margin: 30px;
-    border-radius: 15px;
+    border-radius: 10px;
     width: min(200px, 50%);
     font-family: "Fira Code Medium";
     font-style: italic;
     background-color: rgb(159, 153, 173);
+    border: solid black 3px;
 }
 
 #messages_div {
@@ -362,4 +371,11 @@ ul {
     font-size: 19px;
     color: black;
     font-family: 'Fira Code Bold';
+}
+
+#net_worth{
+    line-height: 2;
+    font-style: normal;
+    color: midnightblue;
+    font-size: larger;
 }

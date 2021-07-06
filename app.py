@@ -1,12 +1,13 @@
+from curses import meta
+import flask_cors
+import plaid
+from locale import currency
 from threading import local
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, json, render_template, request, jsonify
 import sqlite3
 
 username = "guest-web"
 
-import plaid
-
-import flask_cors
 
 app = Flask(__name__)
 
@@ -19,16 +20,19 @@ access_token = None
 localhostport = 8080
 flask_cors.CORS(app)
 
-app.config['SERVER_NAME'] = 'mymoneyportfol.io'+ ":" + str(localhostport)
+#app.config['SERVER_NAME'] = 'mymoneyportfol.io' + ":" + str(localhostport)
 public_token = None
+
 
 @app.route("/", subdomain="test")
 def about_page():
     return render_template("about.html")
 
+
 @app.route("/howitworks", subdomain="about")
 def how_it_works():
     return render_template("howitworks.html")
+
 
 @app.route("/")
 def log_in_page():
@@ -43,15 +47,22 @@ def main_page():
 @app.route("/main/plaidinit", methods=['POST'])
 def plaid_init():
     # Create a link_token for the given user
-    response = client.LinkToken.create({
-        'user': {
-            'client_user_id': "01",
-        },
-        'products': ["auth"],
-        'client_name': 'The Portfolio analyzer',
-        'country_codes': ['US'],
-        'language': 'en',
-    })
+    # response = client.LinkToken.create(
+    #     {
+    #     'user': {
+    #         'client_user_id': "01",
+    #     },
+    #     'products': ["auth"],
+    #     'client_name': 'The Portfolio analyzer',
+    #     'country_codes': ['US'],
+    #     'language': 'en',
+    #     }
+    # )
+
+    response = client.Sandbox.public_token.create(
+        'ins_109511', ['auth']
+    )
+
     # Send the data to the client — in this case, just return some text for now.
     return jsonify(response)
 
@@ -63,32 +74,62 @@ def plaidParser():
     except plaid.errors.PlaidError as e:
         return jsonify({'error': {'display_message': e.display_message, 'error_code': e.code, 'error_type': e.type}})
 
-    res = ""
-
     account_dict = dict(accounts_response)
 
     user_results = {'accounts': []}
+
     global id_dict
     id_dict = {}
 
-    res += "Accounts found:<br>"
     for account in account_dict['accounts']:
-        account_info = {'display_name':"", 'bal': 0}
-
+        account_info = {}
+      
         name = str(account['official_name'])
         if name == "None":
             name = str(account['name'])
-        res += name
-        account_info['display_name'] = name
         id_name = name.replace(" ", "")
-        account_info['id_name'] = id_name
-        id_dict[id_name] = name
-        res += " | Balance = "
+
         bal = account['balances']['current']
-        account_info['bal'] = bal;
-        res += str(bal)
-        res += "<br>"
+        currency = account['balances']['iso_currency_code']
+        subtype = account['subtype']
+        type = account['type']
+
+        account_info['bal'] = bal
+        account_info['display_name'] = name
+        account_info['subtype'] = subtype
+        account_info['type'] = type
+        account_info['currency'] = currency
+        account_info['id_name'] = id_name
+        account_info['user_selected'] = 0
+        id_dict[id_name] = name
+        account_info['username'] = username
+
         user_results['accounts'].append(account_info)
+
+    metadata = {'institution_id': account_dict['item']['institution_id'],
+                'item_id': account_dict['item']['item_id'],
+                'request_id': account_dict['request_id']
+                }
+
+    connection = sqlite3.connect("private/account_data.sqlite")
+    cursor = connection.cursor()
+
+    for user_result in user_results['accounts']:
+        cmd_data = "insert into user_account_data ({}) values ('{}')".format(", ".join([str(k) for k in user_result.keys()]), "', '".join([str(v) for v in user_result.values()]))
+        try:
+            cursor.execute(cmd_data)
+        except sqlite3.IntegrityError as sqliteIntegError:
+            print("Skipping insertion due to integrity error (probably preventing insertion of duplicate value.")
+
+    try:
+        cmd_metadata = "insert into user_account_metadata ({}) values ('{}')".format(", ".join([str(k) for k in metadata.keys()]), "', '".join([str(v) for v in metadata.values()]))
+    except sqlite3.IntegrityError as sqliteIntegError:
+            print("Skipping insertion due to integrity error (probably preventing insertion of duplicate value.")
+    
+    cursor.execute(cmd_metadata)
+    
+    connection.commit()
+    cursor.close()
 
     return jsonify(user_results)
 
@@ -106,46 +147,57 @@ def exchange_public_token():
 @app.route("/main/select_bank_accounts", methods=['POST'])
 def select_bank_accounts():
 
+    connection = sqlite3.connect("private/account_data.sqlite")
+    cursor = connection.cursor()
+
     accounts_dict = request.form.to_dict()
     message = "<p class = medium_heading>You Selected:</p>\
             <ul class = ulplain>"
-    for name_id in accounts_dict:
-        message += ("<li class = liplain>" + id_dict[name_id] + "</li>")
+
+    look_for_names_cmd = "select display_name from user_account_data where username='{}'".format(username)
+    cursor.execute(look_for_names_cmd)
+    names = [name[0] for name in cursor.fetchall()]
+    for name in names:
+        message += ("<li class = liplain>" + name + "</li>")
+        cursor.execute("UPDATE user_account_data SET user_selected=1 WHERE username='{}' and display_name='{}'".format(username, name))
 
     message += "</ul>"
 
-    connection = sqlite3.connect("private/users.db")
-    cursor = connection.cursor()
+    print("Message:", message)
 
-    username = "guest-web"
-    acct_name = "acct-web"
-    acct_bal = 421.27
-    #message = "message-web"
-
-    SQLrequest = "insert into account_data (username, acct_name, acct_bal, message) values (?, ?, ?, ?)"
-    actual_vals = (username, acct_name, acct_bal, message)
-    cursor.execute(SQLrequest, actual_vals)
     connection.commit()
     cursor.close()
-    return message
 
-@app.route("/main/select_bank_accounts_feedback", methods=['GET'])
-def select_bank_accounts_feedback():
+    pie = update_pie()
 
-    connection = sqlite3.connect("private/users.db")
-    cursor = connection.cursor()
-    SQLrequest = "select message from account_data where username=?"
-    actual_vals = (username, )
-    cursor.execute(SQLrequest, actual_vals)
-    res = cursor.fetchall()
-    connection.commit()
-    cursor.close()
+    return jsonify(message=message, net_worth=getNetWorth(username), pie_labels=pie['categories'], pie_vals=pie['values'])
+
+def update_pie():
     
-    try:
-        return str(res[0])
-    except IndexError:
-        pass
-    return "e r r o r"
+    connection = sqlite3.connect("private/account_data.sqlite")
+    cursor = connection.cursor()
+    cmd = "select subtype, bal from user_account_data where username='{}'".format(username)
+    cursor.execute(cmd)
+    res = list(cursor)
+    categories = [x[0] for x in res]
+    values = [x[1] for x in res]
+    return {'categories': categories, 'values': values}
+
+
+def getNetWorth(username):
+    total = 0
+    connection = sqlite3.connect("private/account_data.sqlite")
+    cursor = connection.cursor()
+    cursor.execute(
+        "select bal, display_name, type from user_account_data where username=?", (username,))
+    res = list(cursor)
+    for line in res:
+        if line[2] != "loan":
+            total += float(line[0])
+        else:
+            total -= float(line[0])
+
+    return "%.2f" %(total)
 
 
 if __name__ == "__main__":

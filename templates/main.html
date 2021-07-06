@@ -4,22 +4,24 @@
 <head>
     <title>Portfolio</title>
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-    </link>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="../static/js/scripts.js"></script>
+    <script src="{{ url_for('static', filename='js/pie.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
     <link rel="preload" href="../static/css/fonts/Fira Code/FiraCode-Regular.woff2" as="font" crossorigin="anonymous" />
     <link rel="preload" href="../static/css/fonts/Fira Code/FiraCode-Medium.woff2" as="font" crossorigin="anonymous" />
     <link rel="preload" href="../static/css/fonts/Fira Code/FiraCode-Light.woff2" as="font" crossorigin="anonymous" />
-
 </head>
 
 
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <ul>
         <li onclick="document.location.reload();"> Home </li>
@@ -45,10 +47,11 @@
             </button>
             <h5 id="resultsHeader" hidden=true>Please select which accounts you'd like to import:</h5>
             <p id="results" hidden=true>
-                <form id='select_bank_form2'>
-                    <span id="select_bank_form_sp"></span>
-                    <input class="plaid_button" type='submit' value='Submit &#8680;'>
-                </form>
+            <form id='select_bank_form' style="display: none;">
+                <div>
+                    <input class="plaid_button" type='submit' value='Submit &#8680;' style="text-align: center;">
+                </div>
+            </form>
             </p>
         </div>
         <div class="grid_item"></div>
@@ -61,9 +64,9 @@
     <div class="grid">
         <div class="grid_item"></div>
         <div class="popout grid_item" id="crypto_popout" hidden="true">
-            <p> 
+            <p>
                 <img src="{{ url_for('static', filename='Images/noun_Hard Hat_1022.svg') }}" style="height: 35px;">
-                Currently Under Construction. Please Check Back Later. 
+                Currently Under Construction. Please Check Back Later.
                 <img src="{{ url_for('static', filename='Images/noun_Hard Hat_1022.svg') }}" style="height: 35px;">
             </p>
         </div>
@@ -77,9 +80,9 @@
     <div class="grid">
         <div class="grid_item"></div>
         <div class="popout grid_item" id="stock_popout" hidden="true">
-            <p> 
+            <p>
                 <img src="{{ url_for('static', filename='Images/noun_Hard Hat_1022.svg') }}" style="height: 35px;">
-                Currently Under Construction. Please Check Back Later. 
+                Currently Under Construction. Please Check Back Later.
                 <img src="{{ url_for('static', filename='Images/noun_Hard Hat_1022.svg') }}" style="height: 35px;">
             </p>
         </div>
@@ -98,16 +101,93 @@
     </div>
 </div>
 
-<div id="port_vis">
+<div id="port_vis" style="text-align: center;">
 
     <span id="splashscreen">
         When you add financial accounts, statistics and visualizations for your portfolio will appear here. <br>
         Click one of the buttons above to get started!
     </span>
 
-    <span id="replacementdata">
+    <div class="grid203050" id="replacementdata" style="display: none;">
+        <div class="grid_item" id="selected_accounts">
 
-    </span>
+        </div>
+        <div class="grid_item" id="net_worth">
+
+        </div>
+        <div class="grid_item" id="pie_chart">
+            <canvas id="myChart" width="300" height="300" style="max-width: 300px; max-height: 300px; display: inline-block"></canvas>
+            <canvas id="myChart_debt" width="300" height="300" style="max-width: 300px; max-height: 300px; display: inline-block"></canvas>
+        </div>
+    </div>
 </div>
+
+<script>
+
+    const labels = [
+        'Stocks',
+        'Savings',
+        'Checking',
+        'Cash',
+        'Crypto',
+    ];
+
+    let colors = []
+    for (let i = 0; i < labels.length; i++) {
+        base = "rgb(";
+        b = 240 - 35 * i
+        g = 255 - 35 * i
+        base += `0, ${g}, ${b}`
+        base += ")";
+        colors.push(base)
+    }
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: colors,
+            borderColor: 'rgb(255, 255, 255)',
+            borderWidth: .33,
+            data: [6100, 21000, 5000, 200, 2000],
+        }]
+    };
+
+    const config = {
+        type: 'pie',
+        data,
+        options: {
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        return `$${args.value}: ${args.label}`;
+                    },
+                    precision: 0,
+                    showZero: true,
+                    fontSize: 12,
+                    fontColor: 'rgb(50, 50, 50)',
+                    fontStyle: 'normal',
+                    fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                    textShadow: true,
+                    shadowBlur: 10,
+                    shadowOffsetX: -5,
+                    shadowOffsetY: 5,
+                    shadowColor: 'rgba(255,0,0,0.75)',
+                    arc: true,
+                    position: 'outside',
+                    overlap: true,
+                    showActualPercentages: true,
+                    outsidePadding: 4,
+                    textMargin: 4
+                }
+            }
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
 
 </html>
