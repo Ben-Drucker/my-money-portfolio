@@ -7,8 +7,8 @@ import plaid
 
 app = Flask(__name__)
 
-client = plaid.Client(client_id='60a8883ef567db0011653ef1',
-                      secret='78848d300c58f198b62864cb0bdbde',
+client = plaid.Client(client_id=#REDACTED,
+                      secret=#REDACTED,
                       environment='sandbox')
 
 access_token = None
