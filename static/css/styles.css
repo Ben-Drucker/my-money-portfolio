@@ -61,6 +61,7 @@ button {
     padding-left: 10px;
     padding-right: 10px;
     transition-duration: 60ms;
+    margin: 6px;
 }
 
 li:hover,
@@ -136,6 +137,20 @@ div {
     display: grid;
     grid-template-columns: 15% 70% 15%;
     text-align: center;
+}
+
+.skinny_button{
+    max-width: 200px
+}
+
+.button_grid_3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
 }
 
 .grid203050{

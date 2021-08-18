@@ -154,16 +154,23 @@ def select_bank_accounts():
     message = "<p class = medium_heading>You Selected:</p>\
             <ul class = ulplain>"
 
-    look_for_names_cmd = "select display_name from user_account_data where username='{}'".format(username)
+    look_for_names_cmd = "select display_name, id_name from user_account_data where username='{}'".format(username)
     cursor.execute(look_for_names_cmd)
-    names = [name[0] for name in cursor.fetchall()]
-    for name in names:
-        message += ("<li class = liplain>" + name + "</li>")
-        cursor.execute("UPDATE user_account_data SET user_selected=1 WHERE username='{}' and display_name='{}'".format(username, name))
+    res = list(cursor)
+    displays = [x[0] for x in res]
+    ids = [x[1] for x in res]
+    i = 0
+    for id in ids:
+        if id in accounts_dict:
+            bit = 1
+            message += ("<li class = liplain>" + displays[i] + "</li>")
+        else:
+            bit = 0
+        cursor.execute("UPDATE user_account_data SET user_selected={} WHERE username='{}' and display_name='{}'".format(bit, username, displays[i]))
+        connection.commit()
+        i += 1
 
     message += "</ul>"
-
-    print("Message:", message)
 
     connection.commit()
     cursor.close()
@@ -176,7 +183,7 @@ def update_pie():
     
     connection = sqlite3.connect("private/account_data.sqlite")
     cursor = connection.cursor()
-    cmd = "select subtype, bal, type from user_account_data where username='{}'".format(username)
+    cmd = "select subtype, bal, type from user_account_data where username='{}' and user_selected = 1".format(username)
     cursor.execute(cmd)
     res = list(cursor)
     categories = []
@@ -198,7 +205,7 @@ def getNetWorth(username):
     connection = sqlite3.connect("private/account_data.sqlite")
     cursor = connection.cursor()
     cursor.execute(
-        "select bal, display_name, type from user_account_data where username=?", (username,))
+        "select bal, display_name, type from user_account_data where username=? and user_selected=?", (username,1))
     res = list(cursor)
     for line in res:
         if line[2] != "loan":

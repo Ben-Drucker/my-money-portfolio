@@ -134,7 +134,7 @@ window.addEventListener("load", function () {
                 let msg = server_data.message
                 let net_worth = parseFloat(server_data.net_worth)
                 document.getElementById("selected_accounts").innerHTML = msg
-                document.getElementById("net_worth").innerHTML = "Your net worth: <span style='border: solid black 6px; border-radius: 20px; padding: 10px; whitespace: nowrap'>$ " + net_worth + "</span>"
+                document.getElementById("net_worth").innerHTML = "Your net worth: <span style='border: solid black 6px; border-radius: 20px; padding: 10px; white-space: nowrap'>$ " + net_worth + "</span>"
                 document.getElementById('splashscreen').style.display = 'none';
                 document.getElementById('replacementdata').style.display = 'grid';
                 document.getElementById('port_vis').style.borderStyle = 'solid';
