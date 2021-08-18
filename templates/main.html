@@ -85,56 +85,63 @@
     </div>
     <div class="grid">
         <div class="grid_item"></div>
-        <div class="popout grid_item" id="stock_popout" hidden="true" style="padding: 10px;  position: relative;">
-            <div id='stock_import_options' class='button_grid_3'>
-                <div class='grid_item'>
-                    <button class='grid_item skinny_button'>Click here to import stock information via Plaid.</button>
+        <div class="popout grid_item" id="stock_popout" hidden="true" style="padding: 10px;">
+            <div style="position: relative;">
+                <div id='stock_import_options' class='button_grid_3'>
+                    <div class='grid_item'>
+                        <button class='grid_item skinny_button'>Click here to import stock information via Plaid.</button>
+                    </div>
+                    <div class='grid_item'>
+                        <button id='manual_stock_insertion_button' class='grid_item skinny_button' onclick="document.getElementById('stock_table_div').style.display='inline';document.getElementById('stock_import_options').style.display='none'">Click here to manually enter your stock data</button>
+                    </div>
+                    <div class='grid_item'>
+                        <button class='grid_item skinny_button'>Click here to upload a CSV file with your stock data.</button>
+                    </div>
                 </div>
-                <div class='grid_item'>
-                    <button id='manual_stock_insertion_button' class='grid_item skinny_button' onclick="document.getElementById('stock_table_div').style.display='inline';document.getElementById('stock_import_options').style.display='none'">Click here to manually enter your stock data</button>
-                </div>
-                <div class='grid_item'>
-                    <button class='grid_item skinny_button'>Click here to upload a CSV file with your stock data.</button>
-                </div>
-            </div>
-            <div id="stock_table_div" style="display: none;">
-                <table id="stock_input_table">
-                    <tr>
-                        <th>Stock Symbol</th>
-                        <td> Purchase Date</td>
-                        <td> Purchase Price</td>
-                    </tr>
-                    <tr>
-                        <td><input></td>
-                        <td><input></td>
-                        <td><input></td>
-                    </tr>
+                <div id="stock_table_div" style="display: none;">
+                    <form id="stock_input_form" style="text-align: center;">
+                        <table id="stock_input_table">
+                            <tr>
+                                <th>Stock Symbol</th>
+                                <td>Purchase Date (mm-dd-yyyy)</td>
+                                <td>Purchase Price ($x.xx)</td>
+                            </tr>
+                            <tr>
+                                <td><input id="ss1" name="ss1"></td>
+                                <td><input id="pd1" name="pd1"></td>
+                                <td><input id="pp1" name="pp1"></td>
+                            </tr>
 
-                    <tr>
-                        <td><input></td>
-                        <td><input></td>
-                        <td><input></td>
-                    </tr>
+                            <tr>
+                                <td><input id="ss2" name="ss2"></td>
+                                <td><input id="pd2" name="pd2"></td>
+                                <td><input id="pp2" name="pp2"></td>
+                            </tr>
 
-                    <tr>
-                        <td><input></td>
-                        <td><input></td>
-                        <td><input></td>
-                    </tr>
+                            <tr>
+                                <td><input id="ss3" name="ss3"></td>
+                                <td><input id="pd3" name="pd3"></td>
+                                <td><input id="pp3" name="pp3"></td>
+                            </tr>
 
-                </table>
-                <div>
-                    <svg onclick="document.getElementById('stock_input_table').innerHTML += '<tr><td><input></td><td><input></td><td><input></td></tr>';" width="600px" viewBox="0 0 127.5 9.6" style="display: inline-flex;">
-                        <g transform="translate(2.5, 2.5)" fill="none">
-                            <path stroke="grey" stroke-width='0.5px' d="M 6.3034215,4.4431015 H 10.17705 M 0.1322915,0.1322915 c 0,4.45874 6.17113,4.31081 6.17113,4.31081 m -6.17113,-4.31081 H 122.26835 c 0,4.45874 -6.17113,4.31081 -6.17113,4.31081 H 10.17705" stroke-linecap="round" stroke-linejoin="round" stroke-width="1px" />
-                        </g>
-                        <text x="50%" y=50% style="font-size: 15%;" text-anchor="middle" dominant-baseline="middle">
-                            Click here to add another row.
-                        </text>
-                    </svg>
+                        </table>
+
+                        <div>
+                            <svg onclick="document.getElementById('stock_input_table').innerHTML += '<tr><td><input></td><td><input></td><td><input></td></tr>';" width="600px" viewBox="0 0 132.4 14.6" style="display: inline-flex;">
+                                <a class="inner_pop">
+                                    <g class="inner_pop" transform="translate(5, 5)" fill="none">
+                                        <path stroke="grey" stroke-width='0.5px' d="M 6.3034215,4.4431015 H 10.17705 M 0.1322915,0.1322915 c 0,4.45874 6.17113,4.31081 6.17113,4.31081 m -6.17113,-4.31081 H 122.26835 c 0,4.45874 -6.17113,4.31081 -6.17113,4.31081 H 10.17705" stroke-linecap="round" stroke-linejoin="round" stroke-width="1px" />
+                                    </g>
+                                    <text class="inner_pop" x="50%" y=50% style="font-size: 15%;" text-anchor="middle" dominant-baseline="middle">
+                                        Click here to add another row.
+                                    </text>
+                                </a>
+                            </svg>
+                        </div>
+                        <button type="submit">Click here to submit your stock positions.</button>
+                    </form>
+                    <button style="width: auto; position: absolute; left: 0px; bottom: 0px" type="button" onclick="document.getElementById('stock_table_div').style.display='none';document.getElementById('stock_import_options').style.display='grid';"> Go Back </button>
                 </div>
-                <button type="submit">Click here to submit your stock positions.</button>
-                <button style="width: auto; position: absolute; left: 0px; bottom: 0px" type="button" onclick="document.getElementById('stock_table_div').style.display='none';document.getElementById('stock_import_options').style.display='grid';"> Go Back </button>
             </div>
         </div>
         <div class="grid_item"></div>

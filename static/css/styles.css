@@ -64,6 +64,12 @@ button {
     margin: 6px;
 }
 
+
+.inner_pop:hover{
+    cursor: pointer;
+}
+
+
 li:hover,
 button:hover,
 .plaid_button:hover {

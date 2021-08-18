@@ -12,19 +12,20 @@ function largeDiv(div_id) {
 
 function plaid_init() {
     (async function pub($) {
-            $.post('/main/plaid_public_token', { 
-                public_token: JSON.parse(JSON.stringify(await $.post('/main/plaidinit'))).public_token }, () => {
-                console.log("success!");
-                let xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        let bankResults = JSON.parse(this.responseText);
-                        displayBankResults(bankResults);
-                    }
+        $.post('/main/plaid_public_token', {
+            public_token: JSON.parse(JSON.stringify(await $.post('/main/plaidinit'))).public_token
+        }, () => {
+            console.log("success!");
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let bankResults = JSON.parse(this.responseText);
+                    displayBankResults(bankResults);
                 }
-                xhttp.open("GET", "/main/plaid_parser", true);
-                xhttp.send();
-            })
+            }
+            xhttp.open("GET", "/main/plaid_parser", true);
+            xhttp.send();
+        })
     })(jQuery)
 }
 
@@ -122,6 +123,40 @@ function displayBankResults(bankResults) {
 }
 
 var net_worth
+
+window.addEventListener("load", function () {
+    function sendData() {
+        const xhttp = new XMLHttpRequest();
+        const form_data = new FormData(form);
+        
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                try {
+                    const response = JSON.parse(this.responseText);
+                } catch (error) {
+                    ;
+                }
+                console.log("symbols and information received!");
+            };
+        };
+
+        xhttp.addEventListener("error", function (event) {
+            alert('Oops! Something went wrong.');
+        });
+
+        xhttp.open("POST", "/main/process_stocks");
+        xhttp.send(form_data);
+    }
+
+    let form = document.getElementById("stock_input_form");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        sendData();
+    });
+});
+
+
+
 
 window.addEventListener("load", function () {
     function sendData() {

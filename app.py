@@ -4,7 +4,7 @@ import plaid
 from locale import currency
 from threading import local
 from flask import Flask, json, render_template, request, jsonify
-import sqlite3
+import sqlite3, requests
 
 username = "guest-web"
 
@@ -214,6 +214,52 @@ def getNetWorth(username):
             total -= float(line[0])
 
     return "%.2f" %(total)
+
+@app.route("/main/process_stocks", methods=['POST'])
+def process_stocks():
+    dicts = []
+    data = request.form.to_dict()
+    current_pack = {}
+    for ticker in data:
+        if data[ticker] != "":
+            if "ss" in ticker:
+                current_pack['symbol'] = data[ticker].upper()
+            elif "pd" in ticker:
+                date_list = data[ticker].split("-")
+                current_pack['date'] = "-".join([date_list[2], date_list[0], date_list[1]])
+            elif "pp" in ticker:
+                current_pack['price'] = data[ticker].replace("$", "")
+                dicts.append(current_pack)
+                current_pack = {}
+
+    for d in dicts:
+        #historical data
+
+        url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&outputsize=full&apikey=TH9WK3EYIB6D3SPF' %(d['symbol'])
+        r = requests.get(url)
+        data = r.json()
+        if "Error Message" in data:
+            print("The symbol \"%s\" is invalid." %(d['symbol']))
+        else:
+            print(data['Time Series (Daily)'][d['date']]['5. adjusted close'])
+            pass
+
+        #current data
+
+        url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=TH9WK3EYIB6D3SPF'
+        r = requests.get(url)
+        data = r.json()
+        if "Error Message" in data:
+            print("The symbol \"%s\" is invalid." %(d['symbol']))
+        else:
+            print(data['Global Quote']['05. price'])
+            pass
+
+
+    print(dicts)
+    return "success"
+
+# format {'ss1': 'ibm', 'pd1': '03-20-2020', 'pp1': '$100.10', 'ss2': '', 'pd2': '', 'pp2': '', 'ss3': '', 'pd3': '', 'pp3': ''}
 
 
 if __name__ == "__main__":
