@@ -228,7 +228,7 @@ def process_stocks():
                 date_list = data[ticker].split("-")
                 current_pack['date'] = "-".join([date_list[2], date_list[0], date_list[1]])
             elif "pp" in ticker:
-                current_pack['price'] = data[ticker].replace("$", "")
+                current_pack['price'] = float(data[ticker].replace("$", ""))
                 dicts.append(current_pack)
                 current_pack = {}
 
@@ -241,23 +241,39 @@ def process_stocks():
         if "Error Message" in data:
             print("The symbol \"%s\" is invalid." %(d['symbol']))
         else:
-            print(data['Time Series (Daily)'][d['date']]['5. adjusted close'])
-            pass
+            day_stock_price = float(data['Time Series (Daily)'][d['date']]['5. adjusted close'])
+            d['quantity'] = d['price']/day_stock_price
 
+        url = 'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=%s&apikey=TH9WK3EYIB6D3SPF' %(d['symbol'])
+        r = requests.get(url)
+        data = r.json()
+        for result in data['bestMatches']:
+            if result['1. symbol'] == d['symbol']:
+                d['stock_name'] = result['2. name']
+                break
+        if 'stock_name' not in d:
+            d['stock_name'] = "Unknown Stock Name"
         #current data
 
-        url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=TH9WK3EYIB6D3SPF'
+        url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=%s&apikey=TH9WK3EYIB6D3SPF' %(d['symbol'])
         r = requests.get(url)
         data = r.json()
         if "Error Message" in data:
             print("The symbol \"%s\" is invalid." %(d['symbol']))
         else:
-            print(data['Global Quote']['05. price'])
+            new_price = float(data['Global Quote']['05. price'])
             pass
 
 
     print(dicts)
-    return "success"
+
+    message = "<p class=medium_heading>You Selected:</p> <ul class=ulplain>"
+
+    for d in dicts:
+        message += "<li class = liplain>" + d['symbol'] +" <span style='font-style: italic;'>%s</span> — (%.1f&percnt; change)" %(d['stock_name'], 100*(new_price*d['quantity']-d['price'])/d['price'])+"</li>"
+    message += "</ul>"
+
+    return message
 
 # format {'ss1': 'ibm', 'pd1': '03-20-2020', 'pp1': '$100.10', 'ss2': '', 'pd2': '', 'pp2': '', 'ss3': '', 'pd3': '', 'pp3': ''}
 

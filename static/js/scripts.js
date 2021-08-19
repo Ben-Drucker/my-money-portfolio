@@ -128,14 +128,11 @@ window.addEventListener("load", function () {
     function sendData() {
         const xhttp = new XMLHttpRequest();
         const form_data = new FormData(form);
-        
+
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                try {
-                    const response = JSON.parse(this.responseText);
-                } catch (error) {
-                    ;
-                }
+                const response_message = this.responseText;
+                display_user_selected_data(response_message);
                 console.log("symbols and information received!");
             };
         };
@@ -156,6 +153,15 @@ window.addEventListener("load", function () {
 });
 
 
+function display_user_selected_data(message) {
+    document.getElementById("selected_accounts").innerHTML = message;
+    console.log(message)
+    document.getElementById('splashscreen').style.display = 'none';
+    document.getElementById('replacementdata').style.display = 'grid';
+    document.getElementById('port_vis').style.borderStyle = 'solid';
+    document.getElementById('port_vis').style.borderColor = 'black';
+    opacityAnimation(document.getElementById('stock_popout'), 1, 0, 0.1);
+}
 
 
 window.addEventListener("load", function () {
