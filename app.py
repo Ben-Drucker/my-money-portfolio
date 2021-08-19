@@ -253,6 +253,7 @@ def process_stocks():
                 break
         if 'stock_name' not in d:
             d['stock_name'] = "Unknown Stock Name"
+            
         #current data
 
         url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=%s&apikey=TH9WK3EYIB6D3SPF' %(d['symbol'])
