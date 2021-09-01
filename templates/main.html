@@ -100,34 +100,51 @@
                 </div>
                 <div id="stock_table_div" style="display: none;">
                     <form id="stock_input_form" style="text-align: center;">
-                        <table id="stock_input_table">
-                            <tr>
-                                <th>Stock Symbol</th>
-                                <td>Purchase Date (mm-dd-yyyy)</td>
-                                <td>Purchase Price ($x.xx)</td>
-                            </tr>
-                            <tr>
-                                <td><input id="ss1" name="ss1"></td>
-                                <td><input id="pd1" name="pd1"></td>
-                                <td><input id="pp1" name="pp1"></td>
-                            </tr>
+                        <div id="table_outer">
+                            <table id="stock_input_table">
+                                <tr>
+                                    <th>Stock Symbol</th>
+                                    <td>Purchase Date (mm-dd-yyyy)</td>
+                                    <td>Purchase Price ($x.xx)</td>
+                                </tr>
+                                <tr>
+                                    <td><input id="ss1" name="ss1"></td>
+                                    <td><input id="pd1" name="pd1"></td>
+                                    <td><input id="pp1" name="pp1"></td>
+                                </tr>
 
-                            <tr>
-                                <td><input id="ss2" name="ss2"></td>
-                                <td><input id="pd2" name="pd2"></td>
-                                <td><input id="pp2" name="pp2"></td>
-                            </tr>
+                                <tr>
+                                    <td><input id="ss2" name="ss2"></td>
+                                    <td><input id="pd2" name="pd2"></td>
+                                    <td><input id="pp2" name="pp2"></td>
+                                </tr>
 
-                            <tr>
-                                <td><input id="ss3" name="ss3"></td>
-                                <td><input id="pd3" name="pd3"></td>
-                                <td><input id="pp3" name="pp3"></td>
-                            </tr>
+                                <tr>
+                                    <td><input id="ss3" name="ss3"></td>
+                                    <td><input id="pd3" name="pd3"></td>
+                                    <td><input id="pp3" name="pp3"></td>
+                                </tr>
+                            </table>
+                        </div>
 
-                        </table>
+                        <span style="display: none;" id="row_count">
+                            3
+                        </span>
+
+                        <script>
+                            function addRows() {
+                                var row_count = parseInt(document.getElementById("row_count").innerHTML);
+                                let child = document.createElement("table");
+                                child.setAttribute("id", "next_part-"+(row_count + 1));
+                                document.getElementById("table_outer").appendChild(child);
+                                var next_part = document.getElementById("next_part-"+(row_count + 1));
+                                next_part.innerHTML += "<tr><td><input id='ss" + (row_count + 1) + "' name='ss" + (row_count + 1) + "'></td><td><input id='pd" + (row_count + 1) + "' name='pd" + (row_count + 1) + "'></td><td><input id='pp" + (row_count + 1) + "' name='pp" + (row_count + 1) + "'></td></tr>";
+                                document.getElementById("row_count").innerHTML = row_count + 1;
+                            }
+                        </script>
 
                         <div>
-                            <svg onclick="document.getElementById('stock_input_table').innerHTML += '<tr><td><input></td><td><input></td><td><input></td></tr>';" width="600px" viewBox="0 0 132.4 14.6" style="display: inline-flex;">
+                            <svg onclick="addRows();" width="600px" viewBox="0 0 132.4 14.6" style="display: inline-flex;">
                                 <a class="inner_pop">
                                     <g class="inner_pop" transform="translate(5, 5)" fill="none">
                                         <path stroke="grey" stroke-width='0.5px' d="M 6.3034215,4.4431015 H 10.17705 M 0.1322915,0.1322915 c 0,4.45874 6.17113,4.31081 6.17113,4.31081 m -6.17113,-4.31081 H 122.26835 c 0,4.45874 -6.17113,4.31081 -6.17113,4.31081 H 10.17705" stroke-linecap="round" stroke-linejoin="round" stroke-width="1px" />
